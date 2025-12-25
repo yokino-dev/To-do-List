@@ -3,31 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Tarefas</title>
+    <title>Minha Lista de Tarefas</title>
     <link rel="stylesheet" href="/To-do-List/front-end/styles.css">
 </head>
 <body>
-    <h1>Lista de Tarefas</h1>
+    <h1>Minha Lista de Tarefas</h1>
+
     <header>
         <nav>
             <ul>
                 <li><a href="/To-do-List/front-end/index.html">Sobre o Site</a></li>
                 <li><a href="/To-do-List/front-end/html/show_list.html">Mostrar minha lista de tarefas</a></li>
                 <li><a href="/To-do-List/front-end/html/create_list.html">Criar nova tarefa</a></li>
-                <li><a href="" onclick="newpage()" >Github</a></li>
+                <li><a href="#" onclick="newpage()">Github</a></li>
             </ul>
         </nav>
-
-<div class="input-box">
-    <label for="text">Digite sua tarefa nesse espaço</label>
-    <input type="text" id='tasklist-input' placeholder="Plantar batatas"> <br>
-    <button class="btn-task" onclick="savetask()">Adicionar tarefa</button>
-    
-</div>
-<div>
-    <p id="addtask">
-
-    </p>
-</div>
-<script src="/To-do-List/front-end/script.js"></script>
     </header>
+
+
+<div id="showtask">
+   
+    
+    <div class="task-row">
+
+    </div>
+
+    <div class="task-row">
+    </div>
+
+
+</div>
+
+    <script src="/To-do-List/front-end/show_list.js" defer></script>
+</body>
+</html>
