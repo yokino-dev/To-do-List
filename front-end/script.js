@@ -1,31 +1,56 @@
-function savetask()
-{
-    let task = document.getElementById('tasklist-input').value
-    localStorage.setItem('usertask', task);
-    showtask("Tarefa salva com sucesso")
+const input = document.querySelector('#taskInput');
+const btnAdd = document.querySelector('#addTaskBtn');
+const list = document.querySelector('#taskList');
+
+// Carregar tarefas ao iniciar
+let tasks = JSON.parse(localStorage.getItem('myTasks')) || [];
+
+function renderTasks() {
+    list.innerHTML = '';
+    tasks.forEach((task, index) => {
+        const li = document.createElement('li');
+        if (task.completed) li.classList.add('completed');
+
+        li.innerHTML = `
+            <span>${task.text}</span>
+            <div class="actions">
+                <button class="btn-action check-btn" onclick="toggleTask(${index})">
+                    <i class="fas fa-check"></i>
+                </button>
+                <button class="btn-action delete-btn" onclick="removeTask(${index})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+        list.appendChild(li);
+    });
+    localStorage.setItem('myTasks', JSON.stringify(tasks));
 }
 
-function newpage()
-{
-    window.open("https://github.com/yokino-dev", '_blank');
-}
-
-function showtask(show_task)
-{
-    let showtask = document.getElementById("showtask")
-    showtask.textContent = show_task
-}
-window.onload = function() {
-    let storage_task = localStorage.getItem("usertask");
-    if (storage_task) {
-        showtask(`${storage_task} foi salvo`);
-    } else {
-        showtask("Digite uma tarefa e aperte o botão.")
+function addTask() {
+    const text = input.value.trim();
+    if (text !== '') {
+        tasks.push({ text, completed: false });
+        input.value = '';
+        renderTasks();
     }
 }
 
-function taskmessage(message) 
-{
-    const taskmessage = document.getElementById("addtask");
-    taskmessage.textContent = message;
+function toggleTask(index) {
+    tasks[index].completed = !tasks[index].completed;
+    renderTasks();
 }
+
+function removeTask(index) {
+    tasks.splice(index, 1);
+    renderTasks();
+}
+
+// Eventos
+btnAdd.addEventListener('click', addTask);
+input.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addTask();
+});
+
+// Primeira renderização
+renderTasks();
